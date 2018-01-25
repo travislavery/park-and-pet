@@ -6,4 +6,18 @@ module VerifyOwner
 	def current_user
 		Owner.find(session[:owner_id])
 	end
+
+	def need_login?
+		if !logged_in
+			redirect to "/login"
+		end
+	end
+
+	def has_permission?(object)
+		if object.owner.id == session[:owner_id]
+			return true
+		else
+			return false
+		end
+	end
 end
