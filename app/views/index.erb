@@ -1,3 +1,29 @@
 <h1>Welcome!</h1>
 
-<a href="">Login</a>
+<%if !logged_in?%>
+<div>
+	<h1><a href="/login">Login</a></h1>
+	<h1><a href="/signup">Sign up!</a></h1>
+</div>
+<%end%>
+
+<div>
+	<h1>Owners</h1>
+	<%Owner.all.each do |owner|%>
+		<h3><a href="/owners/<%=owner.id%>"><%= owner.username %></a></h3>
+	<%end%>
+</div>
+
+<div>
+	<h1>Pets</h1>
+	<%Pet.all.each do |pet|%>
+		<a href="/pets/<%=pet.id%>"><%= pet.name %></a>
+	<%end%>
+</div>
+
+<div>
+	<h1>Parks</h1>
+	<%Park.all.each do |park|%>
+		<a href="/parks/<%=park.id%>"><%= park.name %></a>
+	<%end%>
+</div>

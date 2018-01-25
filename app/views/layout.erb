@@ -2,8 +2,31 @@
 <html>
 <head>
 	<title>Park and Pet</title>
+	<style type="text/css">
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: blue;
+		}
+		li {
+			float: right;
+		}
+		li a {
+			display: block;
+			padding: 8px;
+		}
+	</style>
 </head>
 <body>
+	<div>
+		<%if logged_in?%>
+		<ul>
+			<li><a href="/logout"><button>Log Out</button></a></li>
+		</ul>
+		<%end%>
+	</div>
 	<% if flash.has?(:message)%>
 		<%= flash[:message]%>
 		<% flash[:message] = nil %>
