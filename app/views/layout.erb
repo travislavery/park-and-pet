@@ -4,6 +4,10 @@
 	<title>Park and Pet</title>
 </head>
 <body>
+	<% if flash.has?(:message)%>
+		<%= flash[:message]%>
+		<% flash[:message] = nil %>
+	<%end%>
 	<%=yield%>
 </body>
 </html>
