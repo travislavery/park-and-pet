@@ -10,19 +10,19 @@ class ParksController < ApplicationController
 	  erb :'parks/new'
 	end
 
-	get '/parks/:id' do
-	  @park = Park.find(params[:id])
+	get '/parks/:slug' do
+	  @park = Park.find_by_slug(params[:slug])
 	  erb :'parks/show'
 	end
 
-	get '/parks/:id/edit' do
+	get '/parks/:slug/edit' do
 		need_login?
-		@park = Park.find(params[:id])
+		@park = Park.find_by_slug(params[:slug])
 		if has_permission?(@park)
 			erb :'parks/edit'
 		else
 			flash[:message] = "You don't have permission to edit that!"
-			redirect "/parks/#{params[:id]}"
+			redirect "/parks/#{params[:slug]}"
 		end
 	end
 
@@ -31,9 +31,11 @@ class ParksController < ApplicationController
 		@park = Park.find(params[:id])
 		if has_permission?(@park)
 			@park.update(params[:park])
+			flash[:message] = "#{@park.name} updated successfully!"
+			redirect "/parks/#{@park.slug}"
 		else
 			flash[:message] = "You don't have permission to edit that!"
-			redirect "/parks/#{params[:id]}"
+			redirect "/parks/#{@park.slug}"
 		end
 	end
 
@@ -41,10 +43,15 @@ class ParksController < ApplicationController
 		need_login?
 		@park = Park.find(params[:id])
 		if has_permission?(@park)
+			@park.pets.each do |pet|
+				pet.park = Park.find_by_name("The Pound")
+			end
+			flash[:message] = "#{@park.name} deleted."
 			@park.delete
+			redirect "/"
 		else
 			flash[:message] = "You don't have permission to delete that!"
-			redirect "/parks/#{params[:id]}"
+			redirect "/parks/#{@park.slug}"
 		end
 	end
 
@@ -54,7 +61,7 @@ class ParksController < ApplicationController
 		@park.owner = Owner.find(session[:owner_id])
 		@park.save
 		flash[:message] = "Park created successfully!"
-		redirect "/parks/#{@park.id}"
+		redirect "/parks/#{@park.slug}"
 	end
 
 end
