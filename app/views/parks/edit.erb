@@ -1,0 +1,14 @@
+<h1>Edit Park <%=@park.name%></h1>
+
+<form action="/parks/<%=@park.id%>" method="post">
+	<input id="hidden" type="hidden" name="_method" value="patch">
+	<label for="park_name">Park Name:</label>
+	<input type="text" name="park[name]" id="park_name" value="<%=@park.name%>"><br>
+	<label for="location">Location:</label>
+	<input type="text" name="park[location]" id="location" value="<%=@park.location%>"><br>
+	<input type="submit" name="submit" value="Update Park">
+</form>
+<form action="/parks/<%=@park.id%>" method="post">
+	<input id="hidden" type="hidden" name="_method" value="delete">
+	<input type="submit" name="submit" value="Delete Park">
+</form>

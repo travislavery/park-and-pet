@@ -1,0 +1,7 @@
+<h1>Parks</h1>
+
+<%Park.all.each do |park|%>
+	<h3><a href="/parks/<%=park.slug%>"><%= park.name %></a></h3>
+	<p>Pets at <%=park.name%>: <%=park.pets_linked.join(", ")%></p>
+	<p><%=park.name%>'s owner: <a href="/owners/<%=park.owner.slug%>"><%=park.owner.username%></a></p>
+<%end%>
