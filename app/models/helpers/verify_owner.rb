@@ -3,12 +3,16 @@ module VerifyOwner
 		not session[:owner_id].nil?
 	end
 
-	def current_user
-		Owner.find(session[:owner_id])
+	def current_user?
+		if session[:owner_id] == @owner.id
+			return true
+		else
+			return false
+		end
 	end
 
 	def need_login?
-		if !logged_in
+		if !logged_in?
 			redirect to "/login"
 		end
 	end
