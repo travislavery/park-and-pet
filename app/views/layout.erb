@@ -8,29 +8,71 @@
 			margin: 0;
 			padding: 0;
 			overflow: hidden;
-			background-color: blue;
+			background-color: grey;
+		}
+		li.user {
+			float: right;
 		}
 		li {
-			float: right;
+			float: left;
 		}
 		li a {
 			display: block;
 			padding: 8px;
 		}
+		#transfer_pet {
+			position: absolute;
+			bottom: 50px;
+			background-color: grey;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
 	</style>
 </head>
 <body>
 	<div>
-		<%if logged_in?%>
 		<ul>
-			<li><a href="/logout"><button>Log Out</button></a></li>
-		</ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/owners">Owners</a></li>
+			<li><a href="/pets">Pets</a></li>
+			<li><a href="/parks">Parks</a></li>
+		<%if logged_in? %>
+			<%@owner = Owner.find(session[:owner_id])%>
+			<li class="user"><a href="/logout"><button>Log Out</button></a></li>
+			<li class="user"><a href="/owners/<%=@owner.slug%>">My Profile</a></li>
+			<li class="user"><a href="/owners/<%=@owner.slug%>/pets">My Pets</a></li>
+			<li class="user"><a href="/owners/<%=@owner.slug%>/parks">My Parks</a></li>
+			
+		<%else%>
+			<li class="user"><a href="/login"><button>Login</button></a></li>
+			<li class="user"><a href="/signup"><button>Sign Up</button></a></li>
 		<%end%>
+		</ul>
 	</div>
 	<% if flash.has?(:message)%>
 		<%= flash[:message]%>
 		<% flash[:message] = nil %>
 	<%end%>
 	<%=yield%>
+	<%if logged_in?%>
+	<div id="transfer_pet">
+		<form action="/pets/transfer" method="post">
+			<label for="pet_drop">Send</label>
+			<select id="pet_drop" name="pet">
+				<%@owner.pets.each do |pet|%>
+					<option value="<%=pet.id%>"><%=pet.name%></option>
+				<%end%>
+			</select>
+			<label for="park_drop">To</label>
+			<select id="park_drop" name="park">
+				<%Park.all.each do |park|%>
+					<option value="<%=park.id%>"><%=park.name%></option>
+				<%end%>
+			</select>
+			<input type="submit" name="submit" value="Send!">
+		</form>
+	</div>
+	<%end%>
 </body>
 </html>

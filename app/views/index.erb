@@ -10,20 +10,20 @@
 <div>
 	<h1>Owners</h1>
 	<%Owner.all.each do |owner|%>
-		<h3><a href="/owners/<%=owner.id%>"><%= owner.username %></a></h3>
+		<h3><a href="/owners/<%=owner.slug%>"><%= owner.username %></a></h3>
 	<%end%>
 </div>
 
 <div>
 	<h1>Pets</h1>
 	<%Pet.all.each do |pet|%>
-		<a href="/pets/<%=pet.id%>"><%= pet.name %></a>
+		<a href="/pets/<%=pet.slug%>"><%= pet.name %></a>
 	<%end%>
 </div>
 
 <div>
 	<h1>Parks</h1>
 	<%Park.all.each do |park|%>
-		<a href="/parks/<%=park.id%>"><%= park.name %></a>
+		<a href="/parks/<%=park.slug%>"><%= park.name %></a>
 	<%end%>
 </div>
