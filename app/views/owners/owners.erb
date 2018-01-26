@@ -1,0 +1,7 @@
+<h1>Owners</h1>
+
+<%Owner.all.each do |owner|%>
+	<h3><a href="/owners/<%=owner.slug%>"><%= owner.username %></a></h3>
+	<p><%=owner.username%>'s pets: <%=owner.pets.map {|pet| pet.name}.join(", ")%></p>
+	<p><%=owner.username%>'s parks: <%=owner.parks.map {|park| park.name}.join(", ")%></p>
+<%end%>

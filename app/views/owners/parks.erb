@@ -1,0 +1,10 @@
+<h2>Parks</h2>
+
+<%@owner.parks.each do |park|%>
+	<p><a href="/parks/<%=park.slug%>"><%=park.name%></a></p>
+	<%attending = park.pets.map {|pet| pet.name}%>
+	<p>Pets currently at <%=park.name%>: <%=attending.join(" ")%></p>
+<%end%>
+<%if @owner.id == session[:owner_id]%>
+	<button><h3><a href="/parks/new">Create a new park</a></h3></button>
+<%end%>

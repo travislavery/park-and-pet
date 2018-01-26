@@ -1,0 +1,11 @@
+<h2>Pets</h2>
+<%@owner.pets.each do |pet|%>
+	<p><a href="/pets/<%=pet.slug%>"><%=pet.name%></a></p>
+	<p>Breed: <%=pet.breed%></p>
+	<p>Color: <%=pet.color%></p>
+	<p>Age: <%=pet.age%></p>
+	<p>Current park: <a href="/parks/<%=pet.park.slug%>"><%=pet.park.name%></a></p>
+<%end%>
+<%if @owner.id == session[:owner_id]%>
+	<button><h3><a href="/pets/new">Create a new pet</a></h3></button>
+<%end%>

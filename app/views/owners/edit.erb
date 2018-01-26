@@ -3,7 +3,7 @@
 <form action="/owners/<%=@owner.id%>" method="post">
 	<input id="hidden" type="hidden" name="_method" value="patch">
 	<label for="username">Username:</label>
-	<input type="text" name="owner[username]" id="username" value="<%=@owner.username%>"><br>
+	<input type="text" name="username" id="username" value="<%=@owner.username%>"><br>
 	<button><a href="/owners/<%=@owner.id%>/change-password">Change password</a></button><br>
 	<label>Your Pets</label><br>
 	<%@owner.pets.each do |pet|%>
@@ -11,20 +11,25 @@
 		<p><%=pet.breed%>, <%=pet.age%></p><br>
 	<%end%>
 
-	<label>Check box to send pet to the pound</label>
+	<label>Check box to send pet to the pound</label><br>
 	<%@owner.pets.each do |pet|%>
-	<input type="checkbox" name="pound[pets][]" id="pet_<%=pet.name%>" value="<%=pet.id%>"><%=pet.name%></input>
+	<input type="checkbox" name="pound[pets][]" id="pet_<%=pet.name%>" value="<%=pet.id%>"><%=pet.name%></input><br>
 	<%end%>
 
-	<label>Your Parks</label>
+	<label>Your Parks</label><br>
 	<%@owner.parks.each do |park|%>
-		<h3><a href="/parks/<%=park.id%>"><%=park.name%></a></h3><br>
+		<h3><a href="/parks/<%=park.id%>"><%=park.name%></a></h3><br><br>
 	<%end%>
 
-	<label>Check box to destroy park</label>
-	<%@owner.pets.each do |pet|%>
+	<label>Check box to destroy park</label><br>
+	<%@owner.parks.each do |park|%>
 	<input type="checkbox" name="demo[parks][]" id="park_<%=park.name%>" value="<%=park.id%>"><%=park.name%></input>
 	<%end%>
 
 	<input type="submit" name="submit" value="Submit Changes">
+</form>
+
+<form action="/owners/<%=@owner.id%>" method="post">
+	<input id="hidden" type="hidden" name="_method" value="delete">
+	<input type="submit" name="submit" value="Delete Owner">
 </form>
