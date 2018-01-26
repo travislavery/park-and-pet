@@ -1,0 +1,11 @@
+<h2><%=@pet.name%></h2>
+
+<p>Owner: <a href="/owners/<%=@pet.owner.slug%>"><%=@pet.owner.username%></a></p>
+<p>Breed: <%=@pet.breed%></p>
+<p>Color: <%=@pet.color%></p>
+<p>Age: <%=@pet.age%></p>
+<p>Current park: <a href="/parks/<%=@pet.park.slug%>"><%=@pet.park.name%></a></p>
+
+<%if @pet.owner.id == session[:owner_id]%>
+	<a href="/pets/<%=@pet.slug%>/edit"><button>Edit</button></a>
+<%end%>

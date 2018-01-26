@@ -1,0 +1,19 @@
+<h1>Edit <%=@pet.name%></h1>
+
+<form action="/pets/<%=@pet.id%>" method="post">
+	<input id="hidden" type="hidden" name="_method" value="patch">
+	<label for="pet_name">Pet Name:</label>
+	<input type="text" name="pet[name]" id="pet_name" value="<%=@pet.name%>"><br>
+	<label for="pet_breed">Breed:</label>
+	<input type="text" name="pet[breed]" id="pet_breed" value="<%=@pet.breed%>"><br>
+	<label for="pet_color">Color:</label>
+	<input type="text" name="pet[color]" id="pet_color" value="<%=@pet.color%>"><br>
+	<label for="pet_age">Age:</label>
+	<input type="text" name="pet[age]" id="pet_age" value="<%=@pet.age%>"><br>
+	<input type="submit" name="submit" value="Update Pet">
+</form>
+
+<form action="/pets/<%=@pet.slug%>/delete" method="post">
+	<input id="hidden" type="hidden" name="_method" value="delete">
+	<input type="submit" name="submit" value="Delete Pet">
+</form>
