@@ -3,5 +3,12 @@ class Pet < ActiveRecord::Base
 	belongs_to :owner
 	belongs_to :park
 	include Slugify::InstanceMethods
-  	extend Slugify::ClassMethods
+	extend Slugify::ClassMethods
+  extend NameSupplier
+
+  def self.adoptables
+    Pet.all.select do |pet|
+      pet.adoptable
+    end
+  end
 end

@@ -3,6 +3,7 @@ class Park < ActiveRecord::Base
 	belongs_to :owner
 	include Slugify::InstanceMethods
   	extend Slugify::ClassMethods
+  	extend NameSupplier
 
   	def pets_linked
   		self.pets.map do |pet|
