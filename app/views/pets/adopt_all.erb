@@ -4,8 +4,8 @@
 	<h3><a href="/pets/<%=pet.slug%>"><%= pet.name %></a>
 		<a href="/pets/adopt/<%=pet.slug%>"><button>Adopt me!</button></a>
 	</h3>
+	<p>Breed: <%=pet.breed%></p>
+	<p><%=pet.name%>'s current owner: <a href="<%=pet.owner.slug%>"><%=pet.owner.username%></a></p>
 	<p><%=pet.name%> is at <a href="/parks/<%=pet.park.slug%>"><%=pet.park.name%>!</a></p>
-	<p><%=pet.name%>'s owner: <a href="<%=pet.owner.slug%>"><%=pet.owner.username%></a></p>
-	<p>I'm up for adoption!</p>
 	
 <%end%>

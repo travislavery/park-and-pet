@@ -45,6 +45,7 @@ class ParksController < ApplicationController
 		if has_permission?(@park)
 			@park.pets.each do |pet|
 				pet.park = Park.find_by_name("The Pound")
+				pet.save
 			end
 			flash[:message] = "#{@park.name} deleted."
 			@park.delete

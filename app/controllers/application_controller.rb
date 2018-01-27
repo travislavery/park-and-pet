@@ -38,13 +38,14 @@ class ApplicationController < Sinatra::Base
 	end
 
   post '/signup' do
-  	#binding.pry
   	@owner = Owner.new(params[:owner])
   	if @owner.save
   		@owner.save
   		session[:owner_id] = @owner.id
   		redirect to '/'
   	else
+  		error = @owner.errors.messages.map {|attribute, msg| "#{attribute.to_s} #{msg[0]}"}
+  		flash[:message] = "#{error.each {|e| e[0]}}"
   		redirect '/signup'
   	end
   end

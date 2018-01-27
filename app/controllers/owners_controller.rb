@@ -45,17 +45,18 @@ class OwnersController < ApplicationController
 	patch '/owners/:id' do
 		@owner = Owner.find(params[:id])
 		if current_user?
-			# @owner.username = params[:username]
-			# @owner.save
-			# binding.pry
-			# ##### DOESN'T UPDATE USERNAME IN DATABASE ######
-			# if params[:pound]
-			# 	params[:pound][:pets].each do |pet|
-			# 		animal = Pet.find(pet)
-			# 		animal.update(owner: Owner.find_by_username("The Pound Guy"), park: Park.find_by_name("The Pound"))
-			# 	end
-			# end
-			flash[:message] = "Unable to update username"
+			if params[:pound]
+				params[:pound][:pets].each do |pet|
+					animal = Pet.find(pet)
+					animal.update(owner: Owner.find_by_username("The Pound Guy"), park: Park.find_by_name("The Pound"), adoptable: "true")
+				end
+			end
+			if @owner.errors.any?
+				error = @owner.errors.messages.map {|attribute, msg| "#{attribute.to_s} #{msg[0]}"}
+  				flash[:message] = "#{error.each {|e| e[0]}}"
+  			else
+  				flash[:message] = "Sucessfully updated profile!"
+  			end
 			redirect "/owners/#{@owner.slug}"
 		else
 			flash[:message] = "You don't have permission to edit that!"
@@ -66,8 +67,13 @@ class OwnersController < ApplicationController
 	patch '/owners/:id/password' do
 		@owner = Owner.find(params[:id])
 		if current_user?
-			@owner.update(password: params[:password])
-			flash[:message] = "Password updated sucessfully"
+			@owner.update(params[:user])
+			if @owner.errors.any?
+				error = @owner.errors.messages.map {|attribute, msg| "#{attribute.to_s} #{msg[0]}"}
+  				flash[:message] = "#{error.each {|e| e[0]}}"
+  			else
+  				flash[:message] = "Sucessfully updated username and password!"
+  			end
 			redirect "/owners/#{@owner.slug}"
 		else
 			flash[:message] = "You don't have permission to edit that!"
