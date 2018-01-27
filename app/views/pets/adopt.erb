@@ -1,0 +1,11 @@
+<h1>Adopt <%=@pet.name%>!</h1>
+
+<h2><%=@pet.name%>'s information</h2>
+<p>Breed: <%=@pet.breed%></p>
+<p>Color: <%=@pet.color%></p>
+<p>Age: <%=@pet.age%></p>
+<p>Currently at <%=@pet.park.name%>.</p>
+<form action="/pets/adopt/<%=@pet.id%>" method="post">
+	<input id="hidden" type="hidden" name="_method" value="patch">
+	<input type="submit" name="submit" value="Adopt!">
+</form>

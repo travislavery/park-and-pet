@@ -10,6 +10,12 @@
 	<input type="text" name="pet[color]" id="pet_color" value="<%=@pet.color%>"><br>
 	<label for="pet_age">Age:</label>
 	<input type="text" name="pet[age]" id="pet_age" value="<%=@pet.age%>"><br>
+	<label for="adoptable">Up for adoption?</label>
+	<select id="adoptable" name="adoptable">
+		<option value="none"> </option>
+		<option value="true">True</option>
+		<option value="false">False</option>
+	</select><br>
 	<input type="submit" name="submit" value="Update Pet">
 </form>
 

@@ -9,6 +9,11 @@ class PetsController < ApplicationController
 	  erb :'pets/new'
 	end
 
+	get '/pets/adopt_all' do
+		need_login?
+		erb :'pets/adopt_all'
+	end
+
 	get '/pets/:slug' do
 	  @pet = Pet.find_by_slug(params[:slug])
 	  erb :'pets/show'
@@ -26,10 +31,37 @@ class PetsController < ApplicationController
 		end
 	end
 
+	get '/pets/adopt/:slug' do
+		need_login?
+		@pet = Pet.find_by_slug(params[:slug])
+		if @pet.adoptable
+			erb :'pets/adopt'
+		else
+			flash[:message] = "#{@pet.name} is not up for adoption! Perhaps you'd like to adopt one of these guys!"
+			redirect "/pets/adopt_all"
+		end
+	end
+
+	patch '/pets/adopt/:id' do
+		@pet = Pet.find(params[:id])
+		if @pet.adoptable
+			@pet.owner = Owner.find(session[:owner_id])
+			@pet.adoptable = false
+			@pet.save
+			flash[:message] = "You adopted #{@pet.name}!"
+			redirect "/pets/#{@pet.slug}"
+		else
+			flash[:message] = "#{@pet.name} is not up for adoption! Perhaps you'd like to adopt one of these guys!"
+			redirect "/pets/adopt_all"
+		end
+	end
 	patch '/pets/:id' do
 		need_login?
 		@pet = Pet.find(params[:id])
 		if has_permission?(@pet)
+			if params[:adoptable] != "none"
+				@pet.update(adoptable: params[:adoptable])
+			end
 			@pet.update(params[:pet])
 			flash[:message] = "#{@pet.name} updated successfully!"
 			redirect "/pets/#{@pet.slug}"
