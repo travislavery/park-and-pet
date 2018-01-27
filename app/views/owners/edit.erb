@@ -7,8 +7,12 @@
 	<button><a href="/owners/<%=@owner.id%>/change-password">Change password</a></button><br>
 	<label>Your Pets</label><br>
 	<%@owner.pets.each do |pet|%>
-		<h3><a href="/pets/<%=pet.id%>"><%=pet.name%></a></h3><br>
-		<p><%=pet.breed%>, <%=pet.age%></p><br>
+		<a href="/pets/<%=pet.slug%>"><%=pet.name%></a><br>
+		<p><%=pet.breed%>, <%=pet.age%>, currently at <%=pet.park.name%>. <a href="/pets/<%=pet.slug%>/edit">Edit pet</a><br>
+		<%if pet.adoptable%>
+			**<%=pet.name%> is up for adoption!**
+		<%end%>
+		</p>
 	<%end%>
 
 	<label>Check box to send pet to the pound</label><br>

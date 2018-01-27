@@ -35,8 +35,9 @@
 		<ul>
 			<li><a href="/">Home</a></li>
 			<li><a href="/owners">Owners</a></li>
-			<li><a href="/pets">Pets</a></li>
 			<li><a href="/parks">Parks</a></li>
+			<li><a href="/pets">Pets</a></li>
+			<li><a href="/pets/adopt_all">Adopt!</a></li>
 		<%if logged_in? %>
 			<%@owner = Owner.find(session[:owner_id])%>
 			<li class="user"><a href="/logout"><button>Log Out</button></a></li>

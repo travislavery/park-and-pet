@@ -1,8 +1,9 @@
-<h1><%=@park.name%></h1>
+<h1><%=@park.name%>
+<%if @park.owner.id == session[:owner_id]%>
+	<a href="/parks/<%=@park.slug%>/edit"><button>Edit</button></a>
+<%end%>
+</h1>
 
 <p>Pets at <%=@park.name%>: <%=@park.pets_linked.join(", ")%></p>
 <p><%=@park.name%>'s owner: <a href="/owners/<%=@park.owner.slug%>"><%=@park.owner.username%></a></p>
 
-<%if @park.owner.id == session[:owner_id]%>
-	<a href="/parks/<%=@park.slug%>/edit"><button>Edit</button></a>
-<%end%>

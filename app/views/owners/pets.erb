@@ -1,11 +1,18 @@
-<h2>Pets</h2>
+<h1>Pets</h1>
 <%@owner.pets.each do |pet|%>
-	<p><a href="/pets/<%=pet.slug%>"><%=pet.name%></a></p>
+	<h2><a href="/pets/<%=pet.slug%>"><%=pet.name%></a>
+	<%if current_user?%>
+		<a href="/pets/<%=pet.slug%>/edit"><button>Edit pet</button></a>
+	<%end%>
+	</h2>
 	<p>Breed: <%=pet.breed%></p>
 	<p>Color: <%=pet.color%></p>
 	<p>Age: <%=pet.age%></p>
 	<p>Current park: <a href="/parks/<%=pet.park.slug%>"><%=pet.park.name%></a></p>
+	<%if pet.adoptable%>
+	<p>**<%=pet.name%> is up for adoption!**</p>
+	<%end%>
 <%end%>
 <%if @owner.id == session[:owner_id]%>
-	<button><h3><a href="/pets/new">Create a new pet</a></h3></button>
+	<a href="/pets/new"><button><h3>Create a new pet</h3></button></a>
 <%end%>

@@ -9,21 +9,15 @@
 
 <div>
 	<h1>Owners</h1>
-	<%Owner.all.each do |owner|%>
-		<h3><a href="/owners/<%=owner.slug%>"><%= owner.username %></a></h3>
-	<%end%>
+	<h3><%=Owner.array_usernames.join(", ")%></h3>
 </div>
 
 <div>
 	<h1>Pets</h1>
-	<%Pet.all.each do |pet|%>
-		<a href="/pets/<%=pet.slug%>"><%= pet.name %></a>
-	<%end%>
+	<h3><%=Pet.array_names.join(", ")%></h3>
 </div>
 
 <div>
 	<h1>Parks</h1>
-	<%Park.all.each do |park|%>
-		<a href="/parks/<%=park.slug%>"><%= park.name %></a>
-	<%end%>
+	<h3><%=Park.array_names.join(", ")%></h3>
 </div>

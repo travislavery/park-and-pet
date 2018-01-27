@@ -8,7 +8,7 @@ class Owner < ActiveRecord::Base
 
   def self.array_usernames
   	self.all.map do |owner|
-		"<h3><a href='/owners/#{owner.slug}'>#{owner.username}</a></h3>"
+		"<a href='/owners/#{owner.slug}'>#{owner.username}</a>"
 	end
   end
 end
