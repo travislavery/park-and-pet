@@ -100,4 +100,17 @@ class PetsController < ApplicationController
 		@pet.save
 		redirect "/parks/#{Park.find(params[:park]).slug}"
 	end
+
+	post "/pets/:slug/comment" do
+		@comment = Comment.new(params[:comment])
+		@comment.pet = Pet.find_by_slug(params[:slug])
+		@comment.owner = Owner.find(session[:owner_id])
+		if @comment.save
+			redirect "pets/#{params[:slug]}"
+		else
+			error = @owner.errors.messages.map {|attribute, msg| "#{attribute.to_s} #{msg[0]}"}
+  			flash[:message] = "#{error.each {|e| e[0]}}"
+  			redirect "pets/#{params[:slug]}"
+		end
+	end
 end
