@@ -13,15 +13,16 @@
 <p>Color: <%=@pet.color%></p>
 <p>Age: <%=@pet.age%></p>
 <p>Current park: <a href="/parks/<%=@pet.park.slug%>"><%=@pet.park.name%></a></p>
-
+<%if logged_in?%>
 <form action="/pets/<%=@pet.slug%>/comment" method="post">
 	<label>New Comment</label>
 	<label>Title:</label>
 	<input type="text" name="comment[title]">
 	<label>Content:</label>
-	<textarea rows="3" cols="50" name="comment[content]"></textarea>
+	<textarea rows="1" cols="50" name="comment[content]"></textarea>
 	<input type="submit" name="submit">
 </form>
+<%end%>
 
 <h2>Comments:</h2>
 <%@pet.comments.each do |comment|%>
